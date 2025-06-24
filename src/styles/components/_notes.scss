@@ -1,0 +1,154 @@
+@use "../abstracts/index" as *;
+
+.note_form {
+  // Layout
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  width: 100%;
+  padding: 2rem;
+  max-width: 75rem;
+  background-color: $white;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  border-radius: 5px;
+
+  input,
+  textarea,
+  button {
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 3px;
+  }
+  button {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: $white;
+    background-color: $primary-color;
+    padding-block: 1rem;
+    cursor: pointer;
+    transition: 0.4s all ease-in-out;
+    &:hover {
+      background-color: $link-hover;
+    }
+  }
+
+  .category_selector {
+    width: 100%;
+    display: flex;
+
+    label {
+      font-size: 1.2rem;
+      margin-right: auto;
+    }
+    select {
+      font-size: 1rem;
+      padding-inline: 4rem;
+      padding-block: 0.5rem;
+      padding-left: 1.5rem;
+      background-color: $bg-color;
+      border: none;
+      outline: none;
+
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      background-image: url("/public/images/down-arrow.svg");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+
+      option {
+        background-color: $white;
+        &:checked {
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
+  input[type="datetime-local"] {
+    cursor: pointer;
+    font-size: 1.2rem;
+
+    letter-spacing: 0.1rem;
+
+    &::-webkit-calendar-picker-indicator {
+      background: url("/public/images/calendar.svg");
+      background-position: center;
+      background-size: contain;
+      background-repeat: no-repeat;
+    }
+  }
+}
+
+.note_list {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin: 0;
+    padding: 1rem 0;
+    li {
+      padding: 1rem 2rem;
+      list-style-type: none;
+      background-color: $white;
+      width: 100%;
+      box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+      border-radius: 5px;
+
+      h3 {
+        font-size: 1.3rem;
+        small {
+          padding: 0.4rem 0.6rem;
+          font-size: 1rem;
+          color: $third-color;
+          background-color: $highlight-text;
+          border-radius: 1rem;
+        }
+      }
+      .note_content,
+      .dead_line {
+        padding: 1rem;
+        background-color: $bg-color;
+        color: $primary-color;
+        border-radius: 5px;
+      }
+      .note_content {
+        min-height: 10rem;
+      }
+      .btn_container {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        button {
+          font-size: 1rem;
+          font-weight: 500;
+          padding: 0.5rem 2rem;
+          cursor: pointer;
+          border-radius: 5px;
+          color: $white;
+          transition: 0.4s all ease-in-out;
+
+          &:hover {
+            filter: brightness(55%);
+          }
+        }
+        .del_btn {
+          background-color: red;
+        }
+        .edit_btn {
+          background-color: $primary-color;
+        }
+      }
+    }
+  }
+}
+
+@include minMQ(md) {
+  .note_list {
+    ul {
+      li {
+        width: calc(50% - 0.5rem);
+        max-width: 30rem;
+      }
+    }
+  }
+}

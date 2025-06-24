@@ -1,0 +1,28 @@
+$md-min: 768px;
+$lg-min: 992px;
+$lgm-min: 1000px;
+
+// xsm > xxxxl
+// prettier-ignore
+@mixin minMQ($canvas) {
+ @if $canvas == md  { @media only screen and (min-width: $md-min)  { @content; } }
+ @else if $canvas == lg  { @media only screen and (min-width: $lg-min)  { @content; } }
+ @else if $canvas == lgm { @media only screen and (min-width: $lgm-min) { @content; } }
+ @else  { @media only screen and (min-width: #{$canvas}px) { @content; } }
+}
+// prettier-ignore
+@mixin minmaxMQ($canvas1,$canvas2) {
+@media only screen and (min-width: #{$canvas1}px) and (max-width: #{$canvas2}px) { @content; }
+}
+
+$md-max: 991px;
+$lg-max: 999px;
+
+// xxxxl > xsm
+// prettier-ignore
+@mixin maxMQ($canvas) {
+ @if $canvas == md  { @media only screen and (max-width: $md-max)  { @content; } }
+ @else if $canvas == lg  { @media only screen and (max-width: $lg-max)  { @content; } }
+ @else if $canvas == lgm { @media only screen and (max-width: $lgm-max){ @content; } }
+ @else  { @media only screen and (max-width: #{$canvas}px) { @content; } }
+}
