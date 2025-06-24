@@ -79,6 +79,29 @@
   }
 }
 
+.cat_filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1rem;
+  button {
+    width: calc(33.33% - 0.667rem);
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem 2rem;
+    cursor: pointer;
+    border-radius: 5px;
+
+    background-color: $white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    transition: 0.4s all ease-in-out;
+
+    &:hover {
+      box-shadow: rgba(54, 207, 207, 0.61) 0px 1px 4px;
+    }
+  }
+}
+
 .note_list {
   ul {
     display: flex;
@@ -86,23 +109,31 @@
     gap: 1rem;
     margin: 0;
     padding: 1rem 0;
-    li {
+    > li {
       padding: 1rem 2rem;
       list-style-type: none;
       background-color: $white;
       width: 100%;
+      max-height: fit-content;
       box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
       border-radius: 5px;
 
       h3 {
+        display: flex;
         font-size: 1.3rem;
         small {
+          margin-left: auto;
           padding: 0.4rem 0.6rem;
           font-size: 1rem;
           color: $third-color;
           background-color: $highlight-text;
           border-radius: 1rem;
         }
+      }
+      pre {
+        color: $light-grey;
+        padding: 0.5rem;
+        background-color: #282f2c;
       }
       .note_content,
       .dead_line {
@@ -113,6 +144,7 @@
       }
       .note_content {
         min-height: 10rem;
+        margin-bottom: 1rem;
       }
       .btn_container {
         display: flex;
@@ -128,11 +160,11 @@
           transition: 0.4s all ease-in-out;
 
           &:hover {
-            filter: brightness(55%);
+            filter: brightness(150%);
           }
         }
         .del_btn {
-          background-color: red;
+          background-color: #c70808;
         }
         .edit_btn {
           background-color: $primary-color;

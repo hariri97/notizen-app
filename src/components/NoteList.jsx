@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteNote } from "../features/notes/notesSlice";
-
+import { marked } from "marked";
 /**
- * Zeigt eine Liste von Notizen an und ermöglicht das Löschen oder Bearbeiten.
+ * Zeigt eine Liste von Notizen an und ermöglicht das Löschen oder Bearbeiten oder Filtern.
  *
  * @param {object} props - Eigenschaften der Komponente.
  * @param {function(object): void} props.onEdit - Callback-Funktion, wenn eine Notiz zum Bearbeiten ausgewählt wird.
@@ -14,6 +14,14 @@ function NoteList({ onEdit }) {
   const notes = useSelector((state) => state.notes.notes);
   const dispatch = useDispatch();
   const [now, setNow] = useState(Date.now());
+  const [filterCategory, setFilterCategory] = useState("Alle");
+
+  const filteredNotes =
+    filterCategory === "Alle"
+      ? notes
+      : notes.filter((note) => note.category === filterCategory);
+
+  const categories = ["Alle", "Allgemein", "Arbeit", "Privat", "Wichtig"];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -22,6 +30,12 @@ function NoteList({ onEdit }) {
     return () => clearInterval(interval);
   }, []);
 
+  /**
+   * Berechnet die verbleibende Zeit bis zur Deadline in einem lesbaren Format.
+   *
+   * @param {string|Date} deadline - Ein Datum/Zeitpunkt.
+   * @returns {string} - z. B. "2T 3h 15m verbleibend"
+   */
   const getRemainingTime = (deadline) => {
     const now = new Date().getTime();
     const diff = new Date(deadline).getTime() - now;
@@ -55,36 +69,53 @@ function NoteList({ onEdit }) {
   };
 
   return (
-    <div className="note_list">
-      {notes.length === 0 && <p>Keine Notizen vorhanden.</p>}
-      <ul>
-        {notes.map((note) => (
-          <li key={note.id}>
-            <h3>
-              {note.title} <small>{note.category}</small>
-            </h3>
-            <p className="note_content">{note.content}</p>
-            {note.deadline && (
-              <p className="dead_line">
-                📅 Deadline: {new Date(note.deadline).toLocaleString()}
-                <hr />⏳ {getRemainingTime(note.deadline)}
-              </p>
-            )}
-            <div className="btn_container">
-              <button
-                onClick={() => dispatch(deleteNote(note.id))}
-                className="del_btn"
-              >
-                Löschen
-              </button>{" "}
-              <button onClick={() => onEdit(note)} className="edit_btn">
-                Bearbeiten
-              </button>
-            </div>
-          </li>
+    <>
+      <div className="cat_filter">
+        {categories.map((cat) => (
+          <button key={cat} onClick={() => setFilterCategory(cat)}>
+            {cat}
+          </button>
         ))}
-      </ul>
-    </div>
+      </div>
+
+      <div className="note_list">
+        {filteredNotes.length === 0 && <p>Keine Notizen vorhanden.</p>}
+        <ul>
+          {filteredNotes.map((note) => (
+            <li key={note.id}>
+              <h3>
+                {note.title} <small>{note.category}</small>
+              </h3>
+
+              <div
+                className="note_content"
+                dangerouslySetInnerHTML={{
+                  __html: marked(note.content || ""),
+                }}
+              />
+
+              {note.deadline && (
+                <p className="dead_line">
+                  📅 Deadline: {new Date(note.deadline).toLocaleString()}
+                  <hr />⏳ {getRemainingTime(note.deadline)}
+                </p>
+              )}
+              <div className="btn_container">
+                <button
+                  onClick={() => dispatch(deleteNote(note.id))}
+                  className="del_btn"
+                >
+                  Löschen
+                </button>{" "}
+                <button onClick={() => onEdit(note)} className="edit_btn">
+                  Bearbeiten
+                </button>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </>
   );
 }
 
