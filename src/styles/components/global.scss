@@ -13,15 +13,21 @@ body {
   margin: 0 auto;
 }
 
+.no-scroll {
+  overflow: hidden;
+}
+
+input,
+textarea {
+  &:focus {
+    outline: 3px solid $primary-color;
+  }
+}
 input,
 textarea,
 button {
   background-color: $bg-color;
   border: 0;
-
-  &:focus {
-    outline: 3px solid $primary-color;
-  }
 }
 
 textarea {

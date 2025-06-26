@@ -132,8 +132,9 @@
       }
       pre {
         color: $light-grey;
-        padding: 0.5rem;
+        padding: 1rem;
         background-color: #282f2c;
+        border-left: 0.2rem solid $third-color;
       }
       .note_content,
       .dead_line {
@@ -141,6 +142,7 @@
         background-color: $bg-color;
         color: $primary-color;
         border-radius: 5px;
+        margin-bottom: 1rem;
       }
       .note_content {
         min-height: 10rem;
@@ -153,7 +155,7 @@
         button {
           font-size: 1rem;
           font-weight: 500;
-          padding: 0.5rem 2rem;
+          padding: 0.5rem 1rem;
           cursor: pointer;
           border-radius: 5px;
           color: $white;
@@ -169,7 +171,87 @@
         .edit_btn {
           background-color: $primary-color;
         }
+        .preview_btn {
+          background-color: $third-color;
+        }
       }
+    }
+  }
+}
+
+.notes_popup {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $bg-color;
+  z-index: 9999;
+
+  &_content {
+    position: relative;
+    padding: 2rem;
+    min-width: 40rem;
+    background-color: $white;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    border-radius: 5px;
+  }
+
+  &_close_btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2.5rem;
+    color: $primary-color;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
+  &_headline {
+    display: flex;
+    font-size: 3.5rem;
+    small {
+      height: fit-content;
+      margin-left: auto;
+      padding: 0.4rem 0.6rem;
+      font-size: 1rem;
+      color: $third-color;
+      background-color: $highlight-text;
+      border-radius: 1rem;
+    }
+  }
+
+  &_text {
+    padding: 1rem;
+    min-height: 15rem;
+    background-color: $bg-color;
+    border-radius: 5px;
+    pre {
+      color: $light-grey;
+      padding: 1rem;
+      background-color: #282f2c;
+      border-left: 0.2rem solid $third-color;
+    }
+  }
+
+  &_nav {
+    display: flex;
+    gap: 2rem;
+    button {
+      width: 5rem;
+      padding: 0.5rem 1rem;
+      font-size: 1.5rem;
+      font-weight: 500;
+      color: $white;
+      border-radius: 5px;
+      transition: 0.4s all ease-in-out;
+      cursor: pointer;
+      background-color: $third-color;
     }
   }
 }
